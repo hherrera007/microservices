@@ -28,7 +28,10 @@ def last_seen(user):
 
 @app.route('/thesis/<thesis_id>')
 def search_thesis_by_id(thesis_id):
-    return jsonify(search_by_id(thesis_id))
+    id_, title, status = search_by_id(thesis_id)
+    if id_ == -1:
+        return jsonify(error='Thesis not found', id=thesis_id), 404
+    return jsonify(id=id_, title=title, status=status)
 
 
 if __name__ == '__main__':
